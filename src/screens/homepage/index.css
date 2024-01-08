@@ -1,0 +1,35 @@
+html{
+    scroll-behavior: smooth;
+}
+
+
+
+.subNavItem{
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+
+}
+
+.subNavItem:hover{
+    background-color: #f1f1f1;
+    color: #000;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.subNavItem .active #active{
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: #672020;
+    color: #000;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
