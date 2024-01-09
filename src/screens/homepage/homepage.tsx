@@ -9,6 +9,7 @@ import { Fasilitas } from "./subNavItem/fasilitas";
 import "./index.css";
 import { Footer } from "../../components/footer/footer";
 import { homePageContent } from "../../service/remoteService";
+import LiveChat from "../../components/liveChat/liveChat";
 
 export const Homepage = () => {
   const [content, setContent] = useState<any>([]);
@@ -314,6 +315,8 @@ export const Homepage = () => {
           </button>
         </div>
       </div>
+
+      <LiveChat />
 
       <div className="footer">
         <Footer />
