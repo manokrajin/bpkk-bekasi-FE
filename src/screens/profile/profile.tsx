@@ -1,14 +1,34 @@
 import { Banner } from "../../components/banner/banner";
 import { Navbar } from "../../components/navbar/navbar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TopNavbar } from "../../components/topNavbar/topNavbar";
 import YouTube, { YouTubeProps } from "react-youtube";
 import "./index.css";
 import { Footer } from "../../components/footer/footer";
+import { NavbarTemp } from "../../components/navbarTemp";
+import { loadAllCompanyProfile } from "../../service/remoteService";
 
 export const Profile = () => {
   let loremText =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac ex efficitur, fermentum nisl vitae, porta erat. Cras scelerisque nibh enim, eu posuere augue accumsan in. Suspendisse fermentum magna quis iaculis facilisis. Suspendisse potenti. Vivamus sit amet lectus congue, auctor elit quis, facilisis mi. Pellentesque a tempor leo, eget blandit erat. Maecenas quis magna magna. Integer tristique, magna in ultricies pharetra, diam nisl rutrum risus, quis aliquam eros tortor quis ligula. Phasellus ac elementum leo, ut dapibus sem. Integer varius suscipit pharetra. Donec iaculis libero condimentum, molestie libero quis, faucibus est.";
+
+
+    const [content , setContent] = useState<any>([]);
+    const [sejarah , setSejarah] = useState<any>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const getContent = async () => {
+      const response = await loadAllCompanyProfile();
+      setContent(response);
+      console.log(response);
+  
+      setSejarah(response.data[10].item_value);
+      setIsLoading(false);
+    }
+
+    useEffect(() => {
+      getContent();
+    } , []);
 
   const section2cardContent = [
     {
@@ -49,7 +69,7 @@ export const Profile = () => {
   return (
     <div>
       <TopNavbar />
-      <Navbar />
+      <NavbarTemp />
       <div>
         <Banner />
       </div>
@@ -59,7 +79,7 @@ export const Profile = () => {
           <h1>Sejarah BPKK Bekasi</h1>
         </div>
         <div className="text-left">
-          <p>{loremText}</p>
+          <p>{sejarah}</p>
         </div>
       </div>
 

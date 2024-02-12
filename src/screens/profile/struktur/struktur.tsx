@@ -5,6 +5,7 @@ import leftImage from "./left.png";
 import rightImage from "./right.png";
 import strukturOrganisasi from "./struktur.png";
 import { Footer } from "../../../components/footer/footer";
+import { NavbarTemp } from "../../../components/navbarTemp";
 
 export const Struktur = () => {
   let namaKepala = "Drs. H. M. Yusuf, M.Si";
@@ -15,7 +16,7 @@ export const Struktur = () => {
   return (
     <div>
       <TopNavbar />
-      <Navbar />
+      <NavbarTemp />
 
       <div id="title" className="md:text-left md:px-48 flex flex-col justify-center md:justify-center">
         <h1 className="text-primary text-2xl font-bold">Struktur Organisasi</h1>

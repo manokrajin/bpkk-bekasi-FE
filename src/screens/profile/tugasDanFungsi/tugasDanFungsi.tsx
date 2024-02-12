@@ -2,12 +2,13 @@ import React from "react";
 import { TopNavbar } from "../../../components/topNavbar/topNavbar";
 import { Navbar } from "../../../components/navbar/navbar";
 import { Footer } from "../../../components/footer/footer";
+import { NavbarTemp } from "../../../components/navbarTemp";
 
 export const TugasDanFungsi = () => {
   return (
     <div>
       <TopNavbar />
-      <Navbar />
+      <NavbarTemp />
 
       <div
         className="flex flex-col md:flex-row md:px-32 justify-evenly h-fit"

@@ -1,22 +1,33 @@
-let baseUrl = "http://127.0.0.1:3333";
+import axios from "axios";
 
-export const getBerita = async () => {
-    try {
-        const response = await fetch(`${baseUrl}/api/v1/post`);
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-}
+const baseUrlLocal = "http://127.0.0.1:3333/v1";
+const baseUrlServer ="http://192.168.220.81/api/v1/";
 
-export const homePageContent = async () => {
-    try {
-        const response = await fetch(`${baseUrl}/api/v1/company-profile`);
-        const data = await response.json();
-        return data.data;
-    } catch (error) {
-        console.log(error);
-    }
-}
-    
+let baseUrl = baseUrlServer;
+
+export const loadAllCompanyProfile = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/company-profile`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const loadTkmPemulaPost = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/post`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const loadCarouselImage = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/media`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

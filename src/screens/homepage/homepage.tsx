@@ -8,16 +8,26 @@ import { LayananPpid } from "./subNavItem/layananPpid";
 import { Fasilitas } from "./subNavItem/fasilitas";
 import "./index.css";
 import { Footer } from "../../components/footer/footer";
-import { homePageContent } from "../../service/remoteService";
+import { loadAllCompanyProfile } from "../../service/remoteService";
 import LiveChat from "../../components/liveChat/liveChat";
+import {NavbarTemp}   from "../../components/navbarTemp";
 
 export const Homepage = () => {
   const [content, setContent] = useState<any>([]);
+  const [carousel , setCarousel] = useState<any>([]);
+  const [deskripsi, setDeskripsi] = useState<any>([]);
+
   const [isLoading, setIsLoading] = useState(true);
 
   const getContent = async () => {
-    const response = await homePageContent();
+    const response = await loadAllCompanyProfile();
+  
     setContent(response);
+    setCarousel(response.data[2].item_value);
+    setDeskripsi(response.data[4].item_value);
+    
+    
+
     setIsLoading(false);
   };
 
@@ -27,9 +37,15 @@ export const Homepage = () => {
 
   useEffect(() => {
     getContent();
+    
+
   }, []);
 
-  console.log(content);
+ // console.log(content.data[2].item_value);
+
+  
+
+  
 
   let loremText =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac ex efficitur, fermentum nisl vitae, porta erat. Cras scelerisque nibh enim, eu posuere augue accumsan in. Suspendisse fermentum magna quis iaculis facilisis. Suspendisse potenti. Vivamus sit amet lectus congue, auctor elit quis, facilisis mi. Pellentesque a tempor leo, eget blandit erat. Maecenas quis magna magna. Integer tristique, magna in ultricies pharetra, diam nisl rutrum risus, quis aliquam eros tortor quis ligula. Phasellus ac elementum leo, ut dapibus sem. Integer varius suscipit pharetra. Donec iaculis libero condimentum, molestie libero quis, faucibus est.";
@@ -113,17 +129,17 @@ export const Homepage = () => {
 
   return (
     <div className="flex flex-col">
-      <div>
+      <div className="">
         <TopNavbar />
       </div>
-      <div>
-        <Navbar />
+      <div className="md:sticky top-0 z-50">
+        <NavbarTemp/>
       </div>
       <div id="banner" className="">
         <Banner />
       </div>
 
-      <div className="p-10" id="section-1">
+      <div className=" " id="section-1">
         <div className="flex m-10 flex-col md:flex-row items-center">
           <div className="w-full md:w-1/2 mb-4 md:mb-0">
             <img src="" alt="img" />
@@ -132,7 +148,7 @@ export const Homepage = () => {
             <div className="font-bold text-primary text-xl text-center md:text-left">
               Tentang BPKK Bekasi
             </div>
-            <div className="my-5 text-center md:text-left">{loremText}</div>
+            <div className="my-5 text-center md:text-left">{deskripsi}</div>
             <div className="text-center md:text-left">
               <a href="#">
                 <button className="bg-primary text-white px-7 py-2 rounded-md">

@@ -7,12 +7,13 @@ import wilayahKerja2 from "./assets/wilayahKerja2.png";
 import wilayahKerja3 from "./assets/wilayahKerja3.png";
 import wilayahKerja4 from "./assets/wilayahKerja4.png";
 import { Footer } from "../../../components/footer/footer";
+import { NavbarTemp } from "../../../components/navbarTemp";
 
 export const WilayahKerja = () => {
   return (
     <div>
       <TopNavbar />
-      <Navbar />
+      <NavbarTemp />
       <div className="text-primary font-bold text-2xl" id="title">
         <h1>Wilayah Kerja</h1>
         <h1>Wilayah Indonesia</h1>
