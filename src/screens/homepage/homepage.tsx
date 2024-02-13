@@ -8,7 +8,7 @@ import { LayananPpid } from "./subNavItem/layananPpid";
 import { Fasilitas } from "./subNavItem/fasilitas";
 import "./index.css";
 import { Footer } from "../../components/footer/footer";
-import { loadAllCompanyProfile } from "../../service/remoteService";
+import { loadAllCompanyProfile, loadAllTkmPemulaPost } from "../../service/remoteService";
 import LiveChat from "../../components/liveChat/liveChat";
 import {NavbarTemp}   from "../../components/navbarTemp";
 
@@ -16,15 +16,30 @@ export const Homepage = () => {
   const [content, setContent] = useState<any>([]);
   const [carousel , setCarousel] = useState<any>([]);
   const [deskripsi, setDeskripsi] = useState<any>([]);
+  const [tkmPemula, setTkmPemula] = useState<any>([]);
+  const [img4, setImg4] = useState<any>([]);
+  const [img3, setImg3] = useState<any>([]);
 
+  const baseUrlServer = "http://192.168.220.81/api/"
   const [isLoading, setIsLoading] = useState(true);
 
   const getContent = async () => {
-    const response = await loadAllCompanyProfile();
-  
+    const [response, tkmPemulaResponse] = await Promise.all([loadAllCompanyProfile(), loadAllTkmPemulaPost()]);
+    
+    try {
+      setTkmPemula(tkmPemulaResponse.data.data);
+      console.log(tkmPemulaResponse.data.data[0].thumbnail[0].file_path);
+      setImg3(tkmPemulaResponse.data.data[0].thumbnail[0].file_path);
+      setImg4(tkmPemulaResponse.data.data[0].thumbnail[0].file_path);
+    } catch (error) {
+      console.log(error);
+    }
+
     setContent(response);
     setCarousel(response.data[2].item_value);
     setDeskripsi(response.data[4].item_value);
+    // console.log(tkmPemulaResponse.data.data[0].thumbnail[0].file_path);
+    // console.log(tkmPemulaResponse.data.data);
     
     
 
@@ -35,11 +50,15 @@ export const Homepage = () => {
     getContent();
   }
 
-  useEffect(() => {
-    getContent();
-    
+    useEffect(() => {
+      const fetchData = async () => {
+        await getContent();
+      };
 
-  }, []);
+      fetchData();
+    }, []);
+
+   // console.log(content.data[2].item_value);
 
  // console.log(content.data[2].item_value);
 
@@ -218,7 +237,7 @@ export const Homepage = () => {
         <div className="h-72 my-10">
           <img
             className="object-cover w-full h-full"
-            src={imageSection3}
+            src={img3}
             alt=""
           />
         </div>
@@ -237,20 +256,20 @@ export const Homepage = () => {
         </div>
         <div className="newsSectionImage my-2 justify-center">
           <div className="flex flex-col justify-center mx-auto md:flex-row">
-            {imageNewsSection3.map((item, index) => (
-              <div key={index} className="w-1/3 relative mx-auto">
-                <div className="image-container relative">
-                  <img
-                    className="object-cover w-full h-full"
-                    src={item.image}
-                    alt={item.title}
-                  />
+            {
+              tkmPemula.map((item: any, index: number) => (
+                <div key={index} className="w-1/3 p-2">
+                  <div className="image-container relative">
+                    <img
+                      className="object-cover w-full h-24"
+                      src={`${baseUrlServer}${item.thumbnail[0].file_path}`}
+                      alt={item.title}
+                    />
+                  </div>
+                  <div className="text-primary text-left">{item.title}</div>
                 </div>
-                <p className="absolute bottom-0 left-0 right-0 text-primary text-left bg-white p-2 opacity-75">
-                  {item.title}
-                </p>
-              </div>
-            ))}
+              ))
+            }
           </div>
         </div>
         <div className="w-full">
@@ -267,7 +286,7 @@ export const Homepage = () => {
         <div className="h-72 my-10">
           <img
             className="object-cover w-full h-full"
-            src={imageSection4}
+            src={`${baseUrlServer}${img4}`}
             alt=""
           />
         </div>
@@ -296,18 +315,18 @@ export const Homepage = () => {
           <div className="font-bold text-primary text-4xl ">Galeri Terbaru</div>
         </div>
         <div className="flex flex-wrap">
-          {imageNewsSection5.map((item, index) => (
-            <div key={index} className="w-full md:w-1/3 relative">
+         {tkmPemula.map((item: any, index: number) => (
+            
+            <div key={index} className="w-1/3 p-2">
               <div className="image-container relative">
                 <img
-                  className="object-cover w-full h-full"
-                  src={item.image}
+                  className="object-cover w-full h-72"
+                  src={`${baseUrlServer}${item.thumbnail[0].file_path}`}
                   alt={item.title}
                 />
               </div>
-              <p className="absolute bottom-0 left-0 right-0 text-primary text-left bg-white p-2 opacity-75">
-                {item.title}
-              </p>
+              <div className="text-primary text-left">{item.title}</div>
+            
             </div>
           ))}
         </div>

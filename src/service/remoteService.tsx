@@ -31,3 +31,13 @@ export const loadCarouselImage = async () => {
     console.log(error);
   }
 };
+
+
+export const loadAllTkmPemulaPost = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/post`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -10,6 +10,7 @@ export const Banner = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const baseUrl = "http://127.0.0.1:3333/";
+  const baseUrlServer = "http://192.168.220.81/api/"
   const getContent = async () => {
     const response = await loadCarouselImage();
     setContent(response.data.data);
@@ -23,15 +24,6 @@ export const Banner = () => {
 
   }, []);
 
-  // const bannerStyle = {
-  //   backgroundImage: `url(${heroImage})`,
-  //   backgroundSize: "cover",
-  //   backgroundPosition: "center",
-  // };
-
-  // if (isLoading || !content[2]) {
-  //   return <div>Loading...</div>;
-  // }
 
   const imagesDummy = [
     "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg",
@@ -55,7 +47,7 @@ export const Banner = () => {
         
         {content.map((item: any, index: number) => (
           <div key={index}>
-            <img src={`${baseUrl}${item.file_path}`} alt={item.file_path} className="h-96 object-cover" />
+            <img src={`${baseUrlServer}${item.file_path}`} alt={item.file_path} className="h-96 object-cover" />
           </div>
         ))}
       </Carousel>
